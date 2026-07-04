@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { Presentation } from "../components/presentation";
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend,
   PieChart, Pie, Cell,
@@ -194,12 +195,10 @@ function Report() {
 
   const selectedDetails = personStats.find((item) => item.label === selectedPerson);
 
-  return (
-    <div className="min-h-screen bg-background text-foreground">
-      <Hero />
-      <Nav />
+  const slides = [
+    <Hero />,
 
-      <Section id="tahlil" kicker="I bo‘lim" title="Tahliliy ma’lumotlar">
+    <Section id="tahlil" kicker="I bo‘lim" title="Tahliliy ma’lumotlar">
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6 mb-10">
           {stats.map((s) => (
             <div key={s.l} className="rounded-xl border bg-card p-5 shadow-[var(--shadow-card)]">
@@ -337,7 +336,7 @@ function Report() {
             </ul>
           </Card>
         </div>
-      </Section>
+      </Section>,
 
       <Section id="ishlar" kicker="II bo‘lim" title="Amalga oshirilgan ishlar" tone="dark">
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -357,7 +356,7 @@ function Report() {
             </div>
           ))}
         </div>
-      </Section>
+      </Section>,
 
       <Section id="toifa" kicker="III bo‘lim" title="Xonadonlar toifasi bo‘yicha hisobot">
         <div className="grid gap-4 sm:grid-cols-3 mb-8">
@@ -407,7 +406,7 @@ function Report() {
             ]}
           />
         </div>
-      </Section>
+      </Section>,
 
       <Section id="shaxslar" kicker="IV bo‘lim" title="Kriminogen vaziyatga ta’sir qiluvchi shaxslar">
         <div className="grid gap-6 lg:grid-cols-2 items-center">
@@ -443,7 +442,7 @@ function Report() {
             </ResponsiveContainer>
           </div>
         </div>
-      </Section>
+      </Section>,
 
       <Section id="joylar" kicker="V bo‘lim" title="Xavfli joylar ro‘yxati" tone="muted">
         <div className="grid gap-5 md:grid-cols-3">
@@ -455,7 +454,7 @@ function Report() {
             </div>
           ))}
         </div>
-      </Section>
+      </Section>,
 
       <Section id="rejalar" kicker="VI bo‘lim" title="Amalga oshirilishi lozim ishlar">
         <div className="grid gap-4 md:grid-cols-2">
@@ -469,14 +468,14 @@ function Report() {
             </div>
           ))}
         </div>
-      </Section>
+      </Section>,
 
       <Section id="jinoyatlar" kicker="VII bo‘lim" title="Sodir etilgan jinoyatlar (3 yil)" tone="muted">
         <div className="grid gap-8 lg:grid-cols-2">
           <CrimeList title="“ALIYEV” oltin savdo markazi" tone="danger" items={aliyevCrimes} />
           <CrimeList title="Bunyodkor ko‘chasi bo‘ylab" tone="warn" items={bunyodkorCrimes} />
         </div>
-      </Section>
+      </Section>,
 
       <Section id="prognoz" kicker="Xulosa" title="Sabab, taklif va kriminologik prognoz" tone="dark">
         <div className="grid gap-6 lg:grid-cols-3">
@@ -506,18 +505,12 @@ function Report() {
             </ul>
           </div>
         </div>
-      </Section>
+      </Section>,
 
-      <InteractiveMapSection />
+      <InteractiveMapSection />,
+  ];
 
-      <footer className="border-t bg-card">
-        <div className="mx-auto max-w-7xl px-6 py-8 text-sm text-muted-foreground flex flex-wrap justify-between gap-4">
-          <div>Chilonzor tumani IIB · BESHQURGON MFY</div>
-          <div>Podpolkovnik F.Soriyev · Katta leytenant X.Allanov</div>
-        </div>
-      </footer>
-    </div>
-  );
+  return <Presentation slides={slides} />;
 }
 
 /* ---------- primitives ---------- */
@@ -895,6 +888,13 @@ function InteractiveMapSection() {
           </div>
         </div>
       </div>
+
+      <footer className="border-t border-border/50 mt-12">
+        <div className="mx-auto max-w-7xl px-6 py-6 text-sm text-muted-foreground flex flex-wrap justify-between gap-4">
+          <div>Chilonzor tumani IIB · BESHQURGON MFY</div>
+          <div>Podpolkovnik F.Soriyev · Katta leytenant X.Allanov</div>
+        </div>
+      </footer>
     </section>
   );
 }
